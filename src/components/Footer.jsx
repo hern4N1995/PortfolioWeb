@@ -3,10 +3,12 @@ import { Mail, Linkedin } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
 
 const links = [
+  { label: 'Hero', target: 'home' },
   { label: 'Sobre mí', target: 'about' },
-  { label: 'Experiencia', target: 'experience' },
   { label: 'Proyectos', target: 'projects' },
+  { label: 'Experiencia', target: 'experience' },
   { label: 'Habilidades', target: 'skills' },
+  { label: 'Educación', target: 'education' },
   { label: 'Contacto', target: 'contact' },
 ];
 

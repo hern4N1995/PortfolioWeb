@@ -1,21 +1,52 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
 import { useTheme } from '../context/ThemeContext';
 
 const links = [
+  { label: 'Hero', target: 'home' },
   { label: 'Sobre mí', target: 'about' },
-  { label: 'Experiencia', target: 'experience' },
   { label: 'Proyectos', target: 'projects' },
+  { label: 'Experiencia', target: 'experience' },
   { label: 'Habilidades', target: 'skills' },
+  { label: 'Educación', target: 'education' },
   { label: 'Contacto', target: 'contact' },
 ];
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === 'dark';
+
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.getElementById(link.target))
+      .filter(Boolean);
+
+    if (sections.length === 0) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        threshold: 0.35,
+        rootMargin: '-20% 0px -45% 0px',
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/70 backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/70">
@@ -40,7 +71,13 @@ function Navbar() {
               smooth={true}
               duration={500}
               offset={-80}
-              className="cursor-pointer text-sm font-medium text-slate-600 transition hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400"
+              spy={true}
+              activeClass="text-cyan-600 font-semibold dark:text-cyan-400"
+              className={`cursor-pointer text-sm font-medium transition hover:text-cyan-600 dark:hover:text-cyan-400 ${
+                activeSection === link.target
+                  ? 'text-cyan-600 font-semibold dark:text-cyan-400'
+                  : 'text-slate-600 dark:text-slate-300'
+              }`}
             >
               {link.label}
             </ScrollLink>
@@ -85,8 +122,14 @@ function Navbar() {
                   smooth={true}
                   duration={500}
                   offset={-80}
+                  spy={true}
+                  activeClass="text-cyan-600 font-semibold dark:text-cyan-400"
                   onClick={() => setMobileOpen(false)}
-                  className="cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-cyan-50 hover:text-cyan-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
+                  className={`cursor-pointer rounded-lg px-3 py-2 text-sm font-medium transition hover:bg-cyan-50 hover:text-cyan-600 dark:hover:bg-slate-800 dark:hover:text-cyan-400 ${
+                    activeSection === link.target
+                      ? 'bg-cyan-50 text-cyan-600 font-semibold dark:bg-slate-800 dark:text-cyan-400'
+                      : 'text-slate-700 dark:text-slate-200'
+                  }`}
                 >
                   {link.label}
                 </ScrollLink>
