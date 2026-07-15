@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Check, Copy, Mail, Linkedin, MapPin, Phone, Send } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Mail, Linkedin, MapPin, Phone, Send } from 'lucide-react';
+import EmailContactMenu from './EmailContactMenu';
 
 const contactInfo = [
   {
@@ -33,34 +34,10 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitError, setSubmitError] = useState('');
-  const [isEmailMenuOpen, setIsEmailMenuOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const emailMenuRef = useRef(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (emailMenuRef.current && !emailMenuRef.current.contains(event.target)) {
-        setIsEmailMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText('hernan.cs@hotmail.com');
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1400);
-    } catch (error) {
-      setCopied(false);
-    }
   };
 
   const handleSubmit = async (event) => {
@@ -214,63 +191,7 @@ function Contact() {
 
             if (item.label === 'Email') {
               return (
-                <div key={item.label} ref={emailMenuRef} className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setIsEmailMenuOpen((value) => !value)}
-                    className="flex w-full items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 text-left transition hover:border-cyan-500/40 dark:border-slate-800 dark:bg-slate-950/50"
-                  >
-                    <div className="rounded-full bg-cyan-500/10 p-2 text-cyan-600 dark:text-cyan-400">
-                      <Icon size={16} />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-slate-900 dark:text-white">{item.label}</p>
-                      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{item.value}</p>
-                    </div>
-                  </button>
-
-                  <AnimatePresence>
-                    {isEmailMenuOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -6, scale: 0.96 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -6, scale: 0.96 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute left-0 right-0 z-20 mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-900/95"
-                      >
-                        <a
-                          href="https://mail.google.com/mail/?view=cm&fs=1&to=hernan.cs@hotmail.com"
-                          target="_blank"
-                          rel="noreferrer"
-                          className="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 transition hover:bg-cyan-50 hover:text-cyan-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
-                        >
-                          <Mail size={14} />
-                          <span>Abrir en Gmail</span>
-                        </a>
-                        <a
-                          href="https://outlook.live.com/mail/0/deeplink/compose?to=hernan.cs@hotmail.com"
-                          target="_blank"
-                          rel="noreferrer"
-                          className="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 transition hover:bg-cyan-50 hover:text-cyan-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
-                        >
-                          <Mail size={14} />
-                          <span>Abrir en Outlook</span>
-                        </a>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            handleCopyEmail();
-                            setIsEmailMenuOpen(false);
-                          }}
-                          className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-slate-700 transition hover:bg-cyan-50 hover:text-cyan-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
-                        >
-                          {copied ? <Check size={14} /> : <Copy size={14} />}
-                          <span>{copied ? '¡Copiado!' : 'Copiar email'}</span>
-                        </button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <EmailContactMenu key={item.label} className="relative" />
               );
             }
 

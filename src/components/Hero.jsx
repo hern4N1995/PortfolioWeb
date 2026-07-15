@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Linkedin, Mail } from 'lucide-react';
+import { ArrowRight, Download, Linkedin, Mail, Phone } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
+import EmailContactMenu from './EmailContactMenu';
 const profileImage = '/images/hernan.png';
 
 function Hero() {
@@ -63,7 +64,7 @@ function Hero() {
             </ScrollLink>
           </div>
 
-          <div className="mt-8 flex items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href="https://www.linkedin.com/in/hernanalegre/"
               target="_blank"
@@ -73,12 +74,31 @@ function Hero() {
             >
               <Linkedin size={18} />
             </a>
+
+            <div className="relative">
+              <EmailContactMenu
+                renderTrigger={({ toggleMenu, buttonRef }) => (
+                  <button
+                    type="button"
+                    ref={buttonRef}
+                    onClick={toggleMenu}
+                    className="rounded-full border border-slate-300 p-3 text-slate-700 transition hover:border-cyan-500 hover:text-cyan-600 dark:border-slate-700 dark:text-slate-200"
+                    aria-label="Email"
+                  >
+                    <Mail size={18} />
+                  </button>
+                )}
+              />
+            </div>
+
             <a
-              href="mailto:hernan.cs@hotmail.com"
+              href="https://wa.me/5493794142880"
+              target="_blank"
+              rel="noreferrer"
               className="rounded-full border border-slate-300 p-3 text-slate-700 transition hover:border-cyan-500 hover:text-cyan-600 dark:border-slate-700 dark:text-slate-200"
-              aria-label="Email"
+              aria-label="WhatsApp"
             >
-              <Mail size={18} />
+              <Phone size={18} />
             </a>
           </div>
         </motion.div>
