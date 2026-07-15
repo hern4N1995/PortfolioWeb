@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
+import { useTheme } from '../context/ThemeContext';
 
 const links = [
   { label: 'Sobre mí', target: 'about' },
@@ -13,19 +14,8 @@ const links = [
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    const storedTheme = window.localStorage.getItem('theme');
-    if (storedTheme) {
-      setIsDark(storedTheme === 'dark');
-    }
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDark);
-    window.localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/70 backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/70">
@@ -60,7 +50,7 @@ function Navbar() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={() => setIsDark((value) => !value)}
+            onClick={toggleTheme}
             className="rounded-full border border-slate-300 bg-white p-2 text-slate-700 shadow-sm transition hover:scale-105 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:text-cyan-400"
             aria-label="Alternar modo oscuro"
           >

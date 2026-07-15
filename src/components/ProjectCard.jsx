@@ -1,11 +1,13 @@
-import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink, Github, Play, Pause, Maximize } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ExternalLink, Github, Play, Pause, Maximize, X } from 'lucide-react';
 
 function ProjectCard({ project }) {
   const videoRef = useRef(null);
+  const modalVideoRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const togglePlayPause = () => {
     if (videoRef.current) {
@@ -19,15 +21,51 @@ function ProjectCard({ project }) {
     }
   };
 
-  const handleFullscreen = () => {
-    if (videoRef.current) {
-      if (videoRef.current.requestFullscreen) {
-        videoRef.current.requestFullscreen();
-      } else if (videoRef.current.webkitRequestFullscreen) {
-        videoRef.current.webkitRequestFullscreen();
-      }
-    }
+  const openExpandedView = () => {
+    setIsExpanded(true);
   };
+
+  const closeExpandedView = () => {
+    setIsExpanded(false);
+  };
+
+  useEffect(() => {
+    if (!isExpanded) {
+      return undefined;
+    }
+
+    const cardVideo = videoRef.current;
+    const modalVideo = modalVideoRef.current;
+
+    if (!cardVideo || !modalVideo) {
+      return undefined;
+    }
+
+    const syncModalVideo = () => {
+      modalVideo.currentTime = cardVideo.currentTime;
+      modalVideo.play().catch(() => {});
+    };
+
+    if (modalVideo.readyState >= 2) {
+      syncModalVideo();
+    } else {
+      modalVideo.addEventListener('loadedmetadata', syncModalVideo);
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeExpandedView();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      modalVideo.pause();
+      modalVideo.removeEventListener('loadedmetadata', syncModalVideo);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isExpanded]);
 
   return (
     <motion.article
@@ -41,16 +79,63 @@ function ProjectCard({ project }) {
     >
       <div className="relative overflow-hidden">
         {project.video ? (
-          <video
-            ref={videoRef}
-            src={project.video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            className="h-56 w-full object-cover"
-          />
+          <>
+            <video
+              ref={videoRef}
+              src={project.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="h-56 w-full object-cover"
+            />
+
+            <AnimatePresence>
+              {isExpanded && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/80 p-4"
+                  onClick={closeExpandedView}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                    className="relative w-full max-w-[90vw] max-h-[90vh] rounded-[1.5rem] bg-slate-950/90 p-2 shadow-2xl"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <button
+                      type="button"
+                      onClick={closeExpandedView}
+                      className="absolute right-3 top-3 z-10 rounded-full bg-white/90 p-2 text-slate-900 shadow-lg transition hover:scale-105"
+                      aria-label="Cerrar vista ampliada"
+                    >
+                      <X size={16} />
+                    </button>
+
+                    <div className="flex max-h-[90vh] items-center justify-center overflow-hidden rounded-[1.25rem]">
+                      <video
+                        ref={modalVideoRef}
+                        src={project.video}
+                        autoPlay
+                        controls
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        className="max-h-[90vh] max-w-[90vw] object-contain"
+                      />
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
         ) : (
           <img
             src={project.image}
@@ -58,7 +143,7 @@ function ProjectCard({ project }) {
             className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
           />
         )}
-        
+
         <div className="absolute inset-0 flex items-center justify-center bg-slate-950/40 opacity-0 transition duration-300 group-hover:opacity-100">
           <a
             href={project.liveUrl}
@@ -90,9 +175,9 @@ function ProjectCard({ project }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              onClick={handleFullscreen}
+              onClick={openExpandedView}
               className="absolute right-4 top-4 rounded-full bg-white/90 p-2.5 text-slate-900 shadow-lg transition hover:scale-105"
-              aria-label="Ver en pantalla completa"
+              aria-label="Ampliar video"
             >
               <Maximize size={16} />
             </motion.button>
