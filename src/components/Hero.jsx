@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Linkedin, Mail } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
-import profileImage from '../assets/images/hernan.png';
+const profileImage = '/images/hernan.png';
 
 function Hero() {
   return (
