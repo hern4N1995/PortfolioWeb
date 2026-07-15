@@ -3,7 +3,7 @@ import { Mail, Linkedin } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
 
 const links = [
-  { label: 'Hero', target: 'home' },
+  { label: 'Inicio', target: 'home' },
   { label: 'Sobre mí', target: 'about' },
   { label: 'Proyectos', target: 'projects' },
   { label: 'Experiencia', target: 'experience' },

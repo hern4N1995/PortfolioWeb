@@ -5,7 +5,7 @@ import { Link as ScrollLink } from 'react-scroll';
 import { useTheme } from '../context/ThemeContext';
 
 const links = [
-  { label: 'Hero', target: 'home' },
+  { label: 'Inicio', target: 'home' },
   { label: 'Sobre mí', target: 'about' },
   { label: 'Proyectos', target: 'projects' },
   { label: 'Experiencia', target: 'experience' },
@@ -38,7 +38,7 @@ function Navbar() {
         });
       },
       {
-        threshold: 0.35,
+        threshold: 0.15,
         rootMargin: '-20% 0px -45% 0px',
       },
     );
