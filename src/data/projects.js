@@ -3,7 +3,7 @@ const projects = [
     id: 1,
     title: 'SIFADECO',
     description:
-      'Proyecto colaborativo desarrollado junto a un colega en el área de Sistemas del Ministerio de Producción de Corrientes.',
+      'Proyecto colaborativo desarrollado junto al área de Sistemas del Ministerio de Producción de Corrientes.',
     stack: ['React', 'Node.js', 'PostgreSQL'],
     video: '/video/sifadeco.mp4',
     liveUrl: 'https://sifadeco.vercel.app',
