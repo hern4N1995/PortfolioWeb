@@ -121,7 +121,10 @@ function Hero() {
                 Perfil
               </p>
               <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                Desarrollo con foco en productos útiles, interfaces claras y soluciones técnicas sostenibles.
+                Me gusta transformar problemas reales en herramientas simples de usar.
+              </p>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Disponible para proyectos freelance y colaboraciones en desarrollo web y análisis de datos.
               </p>
             </div>
           </div>

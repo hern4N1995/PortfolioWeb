@@ -47,7 +47,7 @@ function App() {
             exit={{ opacity: 0, y: 12 }}
             transition={{ duration: 0.2 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-5 right-5 z-50 rounded-full border border-slate-300 bg-white/90 p-3 text-slate-700 shadow-lg backdrop-blur transition hover:scale-105 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-200 dark:hover:text-cyan-400"
+            className="fixed bottom-7 right-5 z-50 rounded-full border border-slate-300 bg-white/90 p-3 text-slate-700 shadow-lg backdrop-blur transition hover:scale-105 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-200 dark:hover:text-cyan-400"
             aria-label="Volver arriba"
           >
             <ArrowUp size={18} />

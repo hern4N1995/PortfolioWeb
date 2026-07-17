@@ -1,7 +1,9 @@
 import {
   BrainCircuit,
   Code2,
+  Database,
   HardHat,
+  Palette,
   Wrench,
 } from 'lucide-react';
 
@@ -25,6 +27,16 @@ const skills = [
     category: 'Herramientas',
     icon: Wrench,
     items: ['Microsoft Office', 'Git', 'Community Management'],
+  },
+  {
+    category: 'Bases de Datos',
+    icon: Database,
+    items: ['PostgreSQL', 'pgAdmin4', 'SQL Server'],
+  },
+  {
+    category: 'Diseño y Multimedia',
+    icon: Palette,
+    items: ['Photoshop', 'Canva', 'Clipchamp', 'Sony Vegas', 'Diseño de flyers'],
   },
 ];
 

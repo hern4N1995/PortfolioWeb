@@ -52,16 +52,20 @@ function Navbar() {
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/70 backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/70">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <ScrollLink
-          to="home"
-          smooth={true}
-          duration={500}
-          offset={-80}
-          className="cursor-pointer text-lg font-semibold tracking-wide text-slate-900 transition-colors dark:text-white"
-        >
-          <span className="rounded-full bg-cyan-500/10 px-3 py-2 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-300">
-            HA
-          </span>
-        </ScrollLink>
+  to="home"
+  smooth={true}
+  duration={500}
+  offset={-80}
+  className="cursor-pointer text-lg font-semibold tracking-wide text-slate-900 transition-colors dark:text-white"
+>
+  <span className="flex items-center justify-center rounded-full bg-cyan-500/10 p-0 dark:bg-cyan-500/20">
+    <img
+      src="/images/HAlogo.png"
+      alt="Hernán Alegre"
+      className="h-14 w-14 object-contain"
+    />
+  </span>
+</ScrollLink>
 
         <div className="hidden items-center gap-6 md:flex">
           {links.map((link) => (
