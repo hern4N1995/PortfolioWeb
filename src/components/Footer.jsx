@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Linkedin } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
+import EmailContactMenu from './EmailContactMenu';
 
 const links = [
   { label: 'Inicio', target: 'home' },
@@ -56,13 +57,20 @@ function Footer() {
           >
             <Linkedin size={16} />
           </a>
-          <a
-            href="mailto:hernan.cs@hotmail.com"
-            className="rounded-full border border-slate-300 bg-white p-2 text-slate-700 transition hover:border-cyan-500 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-            aria-label="Email"
-          >
-            <Mail size={16} />
-          </a>
+          <EmailContactMenu
+            className="relative"
+            renderTrigger={({ toggleMenu, buttonRef }) => (
+              <button
+                type="button"
+                ref={buttonRef}
+                onClick={toggleMenu}
+                className="rounded-full border border-slate-300 bg-white p-2 text-slate-700 transition hover:border-cyan-500 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                aria-label="Email"
+              >
+                <Mail size={16} />
+              </button>
+            )}
+          />
         </div>
 
         <p className="text-sm text-slate-500 dark:text-slate-400">

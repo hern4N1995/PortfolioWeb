@@ -1,8 +1,29 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import {
+  BrainCircuit,
+  Code2,
+  Database,
+  HardHat,
+  Palette,
+  Wrench,
+} from 'lucide-react';
 import skills from '../data/skills';
 
+const iconMap = {
+  BrainCircuit,
+  Code2,
+  Database,
+  HardHat,
+  Palette,
+  Wrench,
+};
+
 function Skills() {
+  const [spotlight, setSpotlight] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState(null);
+
   return (
     <section id="skills" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
       <motion.div
@@ -25,7 +46,7 @@ function Skills() {
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {skills.map((group, index) => {
-          const Icon = group.icon;
+          const Icon = iconMap[group.icon];
 
           return (
             <motion.div
@@ -34,8 +55,24 @@ function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="rounded-[1.75rem] border border-slate-200 bg-white/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/70"
+              className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/70"
+              onMouseMove={(event) => {
+                const rect = event.currentTarget.getBoundingClientRect();
+                setSpotlight({ x: event.clientX - rect.left, y: event.clientY - rect.top });
+                setHoveredCard(group.category);
+              }}
+              onMouseLeave={() => setHoveredCard(null)}
+              whileTap={{ scale: 0.98 }}
             >
+              <motion.div
+                className="pointer-events-none absolute inset-0 rounded-[1.75rem]"
+                animate={{
+                  background: hoveredCard === group.category
+                    ? `radial-gradient(220px circle at ${spotlight.x}px ${spotlight.y}px, rgba(34,211,238,0.12), transparent 70%)`
+                    : 'transparent',
+                }}
+                transition={{ duration: 0.2 }}
+              />
               <div className="flex items-center gap-3">
                 <div className="rounded-full bg-cyan-500/10 p-2 text-cyan-600 dark:text-cyan-400">
                   <Icon size={18} />
@@ -46,7 +83,7 @@ function Skills() {
               </div>
 
               <div className="mt-5 flex flex-wrap gap-2">
-                {group.items.map((item) => (
+                {group.skills.map((item) => (
                   <span
                     key={item}
                     className="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-700 dark:text-cyan-300"

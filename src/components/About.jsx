@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { BriefcaseBusiness, Cpu, Database, Sparkles } from 'lucide-react';
 
 const stats = [
@@ -23,6 +24,30 @@ const stats = [
     icon: Database,
   },
 ];
+
+function CountUp({ end, duration = 1200 }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime;
+    let animationFrame;
+
+    const updateCount = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setCount(Math.floor(progress * end));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(updateCount);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(updateCount);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration]);
+
+  return <span>{count}</span>;
+}
 
 function About() {
   return (
@@ -83,7 +108,7 @@ function About() {
                       {stat.label}
                     </p>
                     <p className="mt-1 text-lg font-semibold text-slate-900 dark:text-white">
-                      {stat.value}
+                      {stat.label === 'Años de experiencia' ? <CountUp end={3} /> : stat.label === 'Proyectos entregados' ? <CountUp end={3} /> : stat.value}
                     </p>
                   </div>
                 </div>

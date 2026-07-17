@@ -1,30 +1,33 @@
-import {
-  BrainCircuit,
-  Code2,
-  HardHat,
-  Wrench,
-} from 'lucide-react';
-
 const skills = [
   {
     category: 'Análisis de Datos',
-    icon: BrainCircuit,
-    items: ['Power BI', 'Python (Pandas)', 'Python (NumPy)'],
+    icon: 'BrainCircuit',
+    skills: ['Power BI', 'Python (Pandas)', 'Python (NumPy)'],
   },
   {
     category: 'Desarrollo Web',
-    icon: Code2,
-    items: ['React', 'Node.js', 'HTML5', 'CSS3', 'JavaScript'],
+    icon: 'Code2',
+    skills: ['React', 'Node.js', 'HTML5', 'CSS3', 'JavaScript'],
   },
   {
     category: 'Infraestructura',
-    icon: HardHat,
-    items: ['Armado y reparación de PC', 'Redes', 'CCTV'],
+    icon: 'HardHat',
+    skills: ['Armado y reparación de PC', 'Redes', 'CCTV'],
   },
   {
     category: 'Herramientas',
-    icon: Wrench,
-    items: ['Microsoft Office', 'Git', 'Community Management'],
+    icon: 'Wrench',
+    skills: ['Microsoft Office', 'Git', 'Community Management'],
+  },
+  {
+    category: 'Bases de Datos',
+    icon: 'Database',
+    skills: ['PostgreSQL', 'pgAdmin4', 'SQL Server'],
+  },
+  {
+    category: 'Diseño y Multimedia',
+    icon: 'Palette',
+    skills: ['Photoshop', 'Canva', 'Clipchamp', 'Sony Vegas', 'Diseño de flyers'],
   },
 ];
 
