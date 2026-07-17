@@ -158,15 +158,14 @@ function Contact() {
             autoComplete="off"
           />
 
-          <motion.button
+          <button
             type="submit"
             disabled={isSubmitting}
-            whileTap={{ scale: 0.95 }}
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-70"
           >
             <Send size={16} />
             {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
-          </motion.button>
+          </button>
 
           {submitMessage && (
             <p className="mt-4 text-sm font-medium text-emerald-600 dark:text-emerald-400">

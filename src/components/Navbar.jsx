@@ -58,63 +58,50 @@ function Navbar() {
           offset={-80}
           className="cursor-pointer text-lg font-semibold tracking-wide text-slate-900 transition-colors dark:text-white"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-500/10 ring-1 ring-cyan-500/20 transition-transform hover:scale-105">
-            <img
-              src="/images/HAlogo.png"
-              alt="Hernán Alegre"
-              className="h-14 w-14 object-contain"
-            />
-          </div>
+          <span className="rounded-full bg-cyan-500/10 px-3 py-2 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-300">
+            HA
+          </span>
         </ScrollLink>
 
         <div className="hidden items-center gap-6 md:flex">
           {links.map((link) => (
-            <motion.div key={link.target} whileHover={{ scale: 1.02 }}>
-              <ScrollLink
-                to={link.target}
-                smooth={true}
-                duration={500}
-                offset={-80}
-                spy={true}
-                activeClass="text-cyan-600 font-semibold dark:text-cyan-400"
-                className={`group relative cursor-pointer overflow-hidden text-sm font-medium transition hover:text-cyan-600 dark:hover:text-cyan-400 ${
-                  activeSection === link.target
-                    ? 'text-cyan-600 font-semibold dark:text-cyan-400'
-                    : 'text-slate-600 dark:text-slate-300'
-                }`}
-              >
-                <span>{link.label}</span>
-                <motion.span
-                  className="absolute bottom-0 left-0 h-[2px] w-full origin-left rounded-full bg-cyan-500"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </ScrollLink>
-            </motion.div>
+            <ScrollLink
+              key={link.target}
+              to={link.target}
+              smooth={true}
+              duration={500}
+              offset={-80}
+              spy={true}
+              activeClass="text-cyan-600 font-semibold dark:text-cyan-400"
+              className={`cursor-pointer text-sm font-medium transition hover:text-cyan-600 dark:hover:text-cyan-400 ${
+                activeSection === link.target
+                  ? 'text-cyan-600 font-semibold dark:text-cyan-400'
+                  : 'text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              {link.label}
+            </ScrollLink>
           ))}
         </div>
 
         <div className="flex items-center gap-2">
-          <motion.button
+          <button
             type="button"
             onClick={toggleTheme}
-            whileTap={{ scale: 0.95 }}
             className="rounded-full border border-slate-300 bg-white p-2 text-slate-700 shadow-sm transition hover:scale-105 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:text-cyan-400"
             aria-label="Alternar modo oscuro"
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </motion.button>
+          </button>
 
-          <motion.button
+          <button
             type="button"
             onClick={() => setMobileOpen((value) => !value)}
-            whileTap={{ scale: 0.95 }}
             className="rounded-full border border-slate-300 bg-white p-2 text-slate-700 shadow-sm transition hover:scale-105 md:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
             aria-label="Abrir menú"
           >
             {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-          </motion.button>
+          </button>
         </div>
       </nav>
 
