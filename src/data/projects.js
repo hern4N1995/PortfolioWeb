@@ -30,7 +30,7 @@ const projects = [
     title: 'TecnoPC',
     description: 'Piezas gráficas para redes sociales del emprendimiento propio de reparación de PC.',
     category: 'diseno',
-    client: 'TecnoPC',
+    
     media: [
       { type: 'image', src: '/images/design/tecnopc1.jpg' },
       { type: 'image', src: '/images/design/tecnopc2.jpg' },
@@ -41,7 +41,7 @@ const projects = [
     title: 'Clases de Música',
     description: 'Diseño de flyer para el emprendimiento de un cliente.',
     category: 'diseno',
-    client: 'Clases de Música',
+    
     media: [{ type: 'image', src: '/images/design/musica.png' }],
   },
   {
@@ -49,7 +49,7 @@ const projects = [
     title: 'Ayrton Pitstop',
     description: 'Flyer y videos promocionales para redes sociales del emprendimiento de un cliente.',
     category: 'diseno',
-    client: 'Ayrton Pitstop',
+    
     media: [
       { type: 'video', src: '/video/design/ayrtonpitstop1.mp4' },
       { type: 'video', src: '/video/design/ayrtonpitstop2.mp4' },
